@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0f0b1e;
+  --foreground: #f4efe6;
 }
 
 @theme inline {
@@ -12,15 +12,42 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-white/10 bg-white/5 p-5;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-white/15 bg-black/30 px-3 py-2 text-foreground outline-none focus:border-amber-400;
+  }
+
+  .label {
+    @apply mb-1 block text-sm text-white/70;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 bg-amber-400 text-black hover:bg-amber-300;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 border border-white/20 hover:bg-white/10;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 bg-red-500/80 text-white hover:bg-red-500;
+  }
+
+  .error {
+    @apply rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300;
+  }
 }
