@@ -9,7 +9,18 @@ interface Props {
   onSubmit: (input: SpotInput) => Promise<void>;
 }
 
+function parseDimensions(sizeStr?: string) : {width: string; length: string} {
+  if (!sizeStr) return {width: "", length: ""};
+   const match = sizeStr.match(/([0-9.]+)\s*[xX*×]\s*([0-9.]+)/);
+   if (match) {
+    return {width: match[1], length: match[2]};
+   }
+   return {width: "", length: ""};
+}
+
 export default function SpotForm({ initial, submitLabel, onSubmit }: Props) {
+  const initialDimensions = parseDimensions(initial?.spotSize);
+  
   const [form, setForm] = useState({
     spotNumber: initial?.spotNumber ?? "",
     zone: initial?.zone ?? "",
@@ -17,6 +28,10 @@ export default function SpotForm({ initial, submitLabel, onSubmit }: Props) {
     locationDescription: initial?.locationDescription ?? "",
     rentalFee: initial ? String(initial.rentalFee) : "",
   });
+
+  const [sizeWidth, setSizeWidth] = useState(initialDimensions.width);
+  const [sizeLength, setSizeLength] = useState(initialDimensions.length);
+
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
@@ -26,9 +41,20 @@ export default function SpotForm({ initial, submitLabel, onSubmit }: Props) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    if (!sizeWidth || !sizeLength) {
+      setError("Please provide both width and length for spot size.");
+      return;
+    }
+
     setSubmitting(true);
     try {
-      await onSubmit({ ...form, rentalFee: Number(form.rentalFee) });
+      const formattedSize = `${sizeWidth.trim()} x ${sizeLength.trim()} m`;
+      await onSubmit({ 
+        ...form,
+        spotSize: formattedSize, 
+        rentalFee: Number(form.rentalFee) 
+      });
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -50,7 +76,31 @@ export default function SpotForm({ initial, submitLabel, onSubmit }: Props) {
         </div>
         <div>
           <label className="label" htmlFor="spotSize">Spot Size</label>
-          <input id="spotSize" required placeholder="2 x 2 m" className="input" value={form.spotSize} onChange={update("spotSize")} />
+          {/* <input id="spotSize" required placeholder="2 x 2 m" className="input" value={form.spotSize} onChange={update("spotSize")} /> */}
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              min="0.1"
+              step="any"
+              required
+              placeholder="Width"
+              className="input text-center"
+              value={sizeWidth}
+              onChange={(e) => setSizeWidth(e.target.value)}  
+            />
+            <span className="text-white/60 font-medium">x</span>
+            <input
+              type="number"
+              min="0.1"
+              step="any"
+              required
+              placeholder="Length"
+              className="input text-center"
+              value={sizeLength}
+              onChange={(e) => setSizeLength(e.target.value)}
+            />
+            <span className="text-white/60 font-medium">m</span>
+          </div>
         </div>
         <div>
           <label className="label" htmlFor="rentalFee">Rental Fee (THB)</label>

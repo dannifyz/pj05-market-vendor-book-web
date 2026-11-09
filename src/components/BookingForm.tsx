@@ -3,6 +3,10 @@
 import { useEffect, useState } from "react";
 import { BookingInput, Spot } from "@/interface";
 import { getSpots, todayUTC } from "@/libs/api";
+import { DatePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs, {Dayjs} from "dayjs";
 
 interface Props {
   initial?: Partial<BookingInput>;
@@ -64,7 +68,24 @@ export default function BookingForm({ initial, submitLabel, onSubmit }: Props) {
       </div>
       <div>
         <label className="label" htmlFor="bookingDate">Booking Date</label>
-        <input id="bookingDate" type="date" required min={minDate} className="input" value={form.bookingDate} onChange={update("bookingDate")} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            value={form.bookingDate ? dayjs(form.bookingDate):null}
+            onChange={(newValue:Dayjs | null) => {
+              setForm({
+                ...form,
+                bookingDate: newValue && newValue.isValid() ? newValue.format("YYYY-MM-DD") : "",
+              });
+            }}
+            minDate={dayjs(minDate)}
+            className="custom-datepicker w-full"
+            slotProps={{
+              textField: {
+                required: true,
+              }
+            }}
+          />
+        </LocalizationProvider>
       </div>
       <div>
         <label className="label" htmlFor="productType">Product Type</label>

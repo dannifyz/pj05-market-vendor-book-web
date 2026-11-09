@@ -32,22 +32,81 @@ body {
   }
 
   .btn {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50;
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 bg-amber-400 text-black hover:bg-amber-300;
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 bg-amber-400 text-black hover:bg-amber-300 cursor-pointer disabled:cursor-not-allowed;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 border border-white/20 hover:bg-white/10;
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 border border-white/20 hover:bg-white/10 cursor-pointer disabled:cursor-not-allowed;
   }
 
   .btn-danger {
-    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 bg-red-500/80 text-white hover:bg-red-500;
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 bg-red-500/80 text-white hover:bg-red-500 cursor-pointer disabled:cursor-not-allowed;
   }
 
   .error {
     @apply rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-sm text-red-300;
   }
+}
+
+/* ===================================================
+   MUI DatePicker Styling สำหรับธีมมืด
+=================================================== */
+/* 1. ตัวหนังสือวันที่ (ดักจับทั้ง span, input และ section ทั้งหมด) */
+.custom-datepicker .MuiPickersSectionList-root,
+.custom-datepicker .MuiPickersSectionList-sectionContent,
+.custom-datepicker .MuiInputBase-input,
+.custom-datepicker input,
+.custom-datepicker span {
+  color: #f4efe6 !important;
+  -webkit-text-fill-color: #f4efe6 !important;
+}
+/* 2. พื้นหลัง, ขนาดกรอบ และเส้นขอบ ให้เหมือนช่อง .input ช่องอื่นเป๊ะๆ */
+.custom-datepicker .MuiPickersOutlinedInput-root,
+.custom-datepicker .MuiOutlinedInput-root,
+.custom-datepicker .MuiPickersInputBase-root {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 0.5rem !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important; /* สี border-white/15 เหมือนช่องอื่น */
+  transition: border-color 0.15s ease-in-out !important;
+}
+.custom-datepicker .MuiPickersOutlinedInput-root:hover,
+.custom-datepicker .MuiOutlinedInput-root:hover {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+.custom-datepicker .MuiPickersOutlinedInput-root.Mui-focused,
+.custom-datepicker .MuiOutlinedInput-root.Mui-focused {
+  border-color: #fbbf24 !important; /* สีทอง amber-400 ตอนคลิก */
+}
+/* 3. ซ่อนกรอบซ้อนเดิมของ MUI ทั้งหมด (ดักจับทุกคลาส notchedOutline) */
+.custom-datepicker [class*="notchedOutline"],
+.custom-datepicker fieldset {
+  display: none !important;
+  border: none !important;
+}
+/* 4. ไอคอนปฏิทิน */
+.custom-datepicker .MuiSvgIcon-root {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+/* 5. ป๊อปอัพปฏิทินที่เด้งออกมา (ให้เป็นโหมดมืด ไม่ขาวจ้า) */
+.MuiPickersPopper-root .MuiPaper-root {
+  background-color: #1a1528 !important;
+  color: #f4efe6 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+.MuiPickersPopper-root .MuiTypography-root,
+.MuiPickersPopper-root .MuiPickersDay-root,
+.MuiPickersPopper-root .MuiDayCalendar-weekDayLabel,
+.MuiPickersPopper-root .MuiIconButton-root {
+  color: #f4efe6 !important;
+}
+.MuiPickersPopper-root .MuiPickersDay-root:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+.MuiPickersPopper-root .MuiPickersDay-root.Mui-selected {
+  background-color: #fbbf24 !important;
+  color: #000000 !important;
 }
