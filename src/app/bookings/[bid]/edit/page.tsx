@@ -32,7 +32,7 @@ export default function EditBookingPage() {
   };
 
   return (
-    <section className="mx-auto flex max-w-xl flex-col gap-4">
+    <section className="mx-auto flex max-w-4xl flex-col gap-4">
       <h1 className="text-2xl font-semibold">Edit Booking</h1>
       {user.role === "admin" && booking.user && (
         <p className="text-sm text-white/60">
