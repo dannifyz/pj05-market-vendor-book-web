@@ -47,13 +47,6 @@ export default function RegisterPage() {
         <input id="tel" type="tel" required className="input" value={form.tel} onChange={update("tel")} />
       </div>
       <div>
-        <label className="label" htmlFor="role">Role</label>
-        <select id="role" className="input" value={form.role} onChange={update("role")}>
-          <option value="member">member</option>
-          <option value="admin">admin</option>
-        </select>
-      </div>
-      <div>
         <label className="label" htmlFor="password">Password</label>
         <input id="password" type="password" required minLength={6} className="input" value={form.password} onChange={update("password")} />
       </div>
