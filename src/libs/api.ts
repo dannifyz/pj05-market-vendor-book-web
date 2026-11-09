@@ -45,6 +45,8 @@ export const logout = (token: string) => request<object>("/auth/logout", {}, tok
 
 export const getSpots = () => request<Spot[]>("/spots");
 
+export const getSpotBookedDates = (spotId: string) => request<string[]>(`/spots/${spotId}/booked-dates`);
+
 export const getSpot = (id: string) => request<Spot>(`/spots/${id}`);
 
 export const createSpot = (input: SpotInput, token: string) =>
