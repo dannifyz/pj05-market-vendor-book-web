@@ -57,7 +57,8 @@ export default function BookingForm({ initial, submitLabel, onSubmit }: Props) {
       setError("Booking date cannot be in the past");
       return;
     }
-    if (bookedDates.includes(form.bookingDate)) {
+    const isCurrentBookingDate = form.spot === initial?.spot && form.bookingDate === initial?.bookingDate;
+    if (!isCurrentBookingDate && bookedDates.includes(form.bookingDate)) {
       setError("This date is already booked for the selected spot.");
       return;
     }
