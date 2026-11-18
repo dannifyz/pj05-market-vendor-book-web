@@ -44,7 +44,7 @@ export default function RegisterPage() {
       </div>
       <div>
         <label className="label" htmlFor="tel">Tel</label>
-        <input id="tel" type="tel" required className="input" value={form.tel} onChange={update("tel")} />
+        <input id="tel" type="tel" required pattern="^0[0-9]{9}$" maxLength={10} title="Please enter a valid 10-digit phone number starting with 0 (e.g. 0812345678)" className="input" value={form.tel} onChange={update("tel")} />
       </div>
       <div>
         <label className="label" htmlFor="password">Password</label>
